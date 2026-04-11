@@ -1,8 +1,8 @@
 import Link from "next/link"
-import { Recycle } from "lucide-react"
 import { LuMessagesSquare } from "react-icons/lu";
 import { FiPhone } from "react-icons/fi";
 import { IoLocationOutline } from "react-icons/io5";
+import { RevealOnScroll } from "./client-body-scroll";
 
 const footerLinks = {
   Platform: [
@@ -19,11 +19,12 @@ const footerLinks = {
 
 export function Footer() {
   return (
-    <footer className=" relative lg:w-full h-[57em] lg:h-[60vh] bg-[url('/images/image.png')] bg-cover bg-center bg-no-repeat">
-      <div className=" px-4 py-15 lg:px-8 absolute inset-0 bg-[#0a3d14] opacity-85">
-        <div className="grid md:grid-cols-5 max-w-5xl mx-auto">
-          {/* Brand */}
-          <div className="md:col-span-2 mr-0">
+    <RevealOnScroll >
+      <footer className=" relative lg:w-full h-[57em] lg:h-[60vh] bg-[url('/images/image.png')] bg-cover bg-center bg-no-repeat">
+        <div className=" px-4 py-15 lg:px-8 absolute inset-0 bg-[#0a3d14] opacity-85">
+          <div className="grid md:grid-cols-5 max-w-5xl mx-auto">
+            {/* Brand */}
+            <div className="md:col-span-2 mr-0">
             <Link href="/" className="flex items-center gap-2">
               <div className="flex h-9 w-9 items-center justify-center rounded-lg ">
                 <img src="/recycle-tree.webp" alt="" className="size-9"/>
@@ -112,5 +113,6 @@ export function Footer() {
         </div>
       </div>
     </footer>
+    </RevealOnScroll>
   )
 }

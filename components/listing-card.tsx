@@ -2,6 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { MapPin } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { RevealOnScroll } from "./client-body-scroll"
 
 export interface Listing {
   id: string
@@ -15,11 +16,12 @@ export interface Listing {
 
 export function ListingCard({ listing }: { listing: Listing }) {
   return (
-    <div className="group overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-shadow hover:shadow-md">
-      <div className="relative aspect-[4/3] overflow-hidden">
-        <Image
-          src={listing.image}
-          alt={listing.title}
+    <RevealOnScroll >
+      <div className="group overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-shadow hover:shadow-md">
+        <div className="relative aspect-[4/3] overflow-hidden">
+          <Image
+            src={listing.image}
+            alt={listing.title}
           fill
           className="object-cover transition-transform duration-300 group-hover:scale-105"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -47,5 +49,6 @@ export function ListingCard({ listing }: { listing: Listing }) {
         </div>
       </div>
     </div>
+    </RevealOnScroll>
   )
 }

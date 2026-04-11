@@ -115,6 +115,70 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
+:root {
+  --scroll-progress: 0;
+}
+
+.scroll-progress-track {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  z-index: 60;
+  background: rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+}
+
+.scroll-progress-bar {
+  width: 0;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(45, 192, 74, 1), rgba(108, 219, 130, 1));
+  transition: width 0.15s ease-out;
+  transform-origin: left;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.75s ease, transform 0.75s ease;
+  will-change: opacity, transform;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero-parallax [data-parallax] {
+  will-change: transform;
+  transform: translateY(calc(var(--scroll-y, 0px) * 0.08));
+  transition: transform 0.2s ease-out;
+}
+
+.hero-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(48px);
+  opacity: 0.8;
+}
+
+.hero-blob.small {
+  width: 10rem;
+  height: 10rem;
+  background: rgba(45, 192, 74, 0.18);
+  top: 18%;
+  left: -4rem;
+}
+
+.hero-blob.large {
+  width: 14rem;
+  height: 14rem;
+  background: rgba(108, 219, 130, 0.12);
+  top: 55%;
+  right: -5rem;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -122,4 +186,17 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+.imageReveal {
+  opacity: 0;
+  transform: translateY(2rem) scale(2.05);
+  filter: saturate(0) contrast(0) brightness(0.1) blur(8px);
+  transition: opacity 0.8s ease, transform 0.8s ease, filter 0.8s ease;
+  will-change: opacity, transform, filter;
+}
+
+.imageReveal.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: none;
 }
