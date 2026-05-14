@@ -22,9 +22,9 @@ export function Footer() {
     <RevealOnScroll >
       <footer className=" relative lg:w-full h-[57em] lg:h-[60vh] bg-[url('/images/image.png')] bg-cover bg-center bg-no-repeat">
         <div className=" px-4 py-15 lg:px-8 absolute inset-0 bg-[#0a3d14] opacity-85">
-          <div className="grid md:grid-cols-5 max-w-5xl mx-auto">
+          <div className="grid lg:grid-cols-5 max-w-5xl mx-auto">
             {/* Brand */}
-            <div className="md:col-span-2 mr-0">
+            <div className="xl:col-span-2 mr-0">
             <Link href="/" className="flex items-center gap-2">
               <div className="flex h-9 w-9 items-center justify-center rounded-lg ">
                 <img src="/recycle-tree.webp" alt="" className="size-9"/>
@@ -53,9 +53,9 @@ export function Footer() {
 
           {/* Link columns */}
           {Object.entries(footerLinks).map(([heading, links]) => (
-            <div key={heading} className="ml-0">
-              <h4 className="text-sm font-semibold text-card">{heading}</h4>
-              <ul className="mt-2 flex flex-col gap-2.5">
+            <div key={heading} className="lg:ml-10">
+              <h4 className="text-sm font-semibold text-card pt-10 lg:pt-0">{heading}</h4>
+              <ul className="my-2 flex flex-col gap-2.5">
                 {links.map((link) => (
                   <li key={link.label}>
                     <Link
@@ -70,7 +70,7 @@ export function Footer() {
             </div>
           ))}
 
-          <div className='text-start lg:text-left mt-10 md:mt-0 w-full lg:w-[30em]'>
+          <div className='text-start lg:text-left mt-10 md:mt-0 w-full xl:w-[30em]'>
             <h5 className='mb-3 text-lg font-bold text-white'>Contact</h5>
             <div className="flex items-center gap-2 mb-2">
               <LuMessagesSquare className='w-5 h-5 text-white' />
@@ -91,7 +91,7 @@ export function Footer() {
             <p className="text-sm text-white w-55 mb-2">Connect with us to turn your waste into revenue and contribute to a greener planet.</p>
             <div className="flex items-center gap-2 mb-4 lg:mb-0">
               <input type="text" placeholder='Enter your email..' required className='bg-white w-55 py-2 lg:py-3 lg:px-5 rounded-md' />
-              <button className='flex text-[14px] items-center bg-white hover:bg-green-600 text-gray-800 hover:text-white font-bold py-3 px-2 rounded-md transition-colors duration-300'>
+              <button className='flex text-[13px] items-center bg-white hover:bg-green-600 text-gray-800 hover:text-white font-bold py-3 px-2 rounded-md transition-colors duration-300'>
                 Get Started
               </button>
             </div>
