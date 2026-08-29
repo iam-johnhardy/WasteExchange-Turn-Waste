@@ -74,3 +74,24 @@ export const sampleListings: Listing[] = [
     image: "/images/plastic-bottles.jpg",
   },
 ]
+
+export const CITIES = [
+  "New York, USA",
+  "Los Angeles, USA",
+  "Chicago, USA",
+  "Houston, USA",
+  "Phoenix, USA",
+  "Philadelphia, USA",
+  "San Antonio, USA",
+  "San Diego, USA",
+  "Dallas, USA",
+  "San Jose, USA",
+  "London, UK",
+  "Manchester, UK",
+  "Birmingham, UK",
+  "Liverpool, UK",
+  "Edinburgh, UK",
+  "Tokyo, Japan",
+  "Osaka, Japan",
+  "Kyoto, Japan",
+]

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { useEffect, useState, useMemo } from "react"
 import { Search, SlidersHorizontal, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -12,8 +12,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { ListingCard } from "@/components/listing-card"
+import { ListingCard, Listing } from "@/components/listing-card"
 import { sampleListings } from "@/lib/data"
+import { getListings } from "@/service/api"
+
+
 
 const wasteTypes = [
   "All",
@@ -36,6 +39,7 @@ const locations = [
   "Enugu",
   "Onitsha",
   "Benin City",
+
 ]
 
 export default function MarketplacePage() {
@@ -43,9 +47,47 @@ export default function MarketplacePage() {
   const [locationFilter, setLocationFilter] = useState("All")
   const [searchQuery, setSearchQuery] = useState("")
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
+  const [listings, setListings] = useState<Listing[]>(sampleListings)
+  const [isLoading, setIsLoading] = useState(true)
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
+
+  useEffect(() => {
+    const loadListings = async () => {
+      try {
+        const data = await getListings("Waste")
+        console.log("BACKEND DATA:", data)
+        const mappedListings: Listing[] = data.map((item: any) => ({
+          id: String(item.id ?? item.owner_id ?? Math.random()),
+          title: item.name ?? item.description ?? "Waste Listing",
+          wasteType: item.category ?? "Other",
+          quantity: item.quantity != null ? String(item.quantity) : "N/A",
+          location: item.location ?? "Unknown",
+          price:
+            item.price != null && item.price !== ""
+              ? `₦${item.price}`
+              : "Contact seller",
+          image:
+            item.image_url && item.image_url !== ""
+              ? item.image_url
+              : "/images/plastic-waste.jpg",
+              
+        }))
+
+        setListings(mappedListings)
+        setErrorMessage(null)
+      } catch (error) {
+        console.error(error)
+        setErrorMessage("Unable to load marketplace listings. Showing sample data.")
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    loadListings()
+  }, [])
 
   const filteredListings = useMemo(() => {
-    return sampleListings.filter((listing) => {
+    return listings.filter((listing) => {
       const matchesType =
         typeFilter === "All" || listing.wasteType === typeFilter
       const matchesLocation =
@@ -57,7 +99,7 @@ export default function MarketplacePage() {
         listing.wasteType.toLowerCase().includes(searchQuery.toLowerCase())
       return matchesType && matchesLocation && matchesSearch
     })
-  }, [typeFilter, locationFilter, searchQuery])
+  }, [listings, typeFilter, locationFilter, searchQuery])
 
   const activeFilters =
     (typeFilter !== "All" ? 1 : 0) + (locationFilter !== "All" ? 1 : 0)
@@ -177,36 +219,53 @@ export default function MarketplacePage() {
 
         {/* Listing grid */}
         <div className="flex-1">
-          {filteredListings.length > 0 ? (
-            <>
-              <p className="mb-4 text-sm text-muted-foreground">
-                {filteredListings.length} listing
-                {filteredListings.length !== 1 ? "s" : ""} found
-              </p>
-              <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-                {filteredListings.map((listing) => (
-                  <ListingCard key={listing.id} listing={listing} />
-                ))}
-              </div>
-            </>
-          ) : (
+          {isLoading ? (
             <div className="flex flex-col items-center py-20 text-center">
-              <Search className="h-10 w-10 text-muted-foreground/50" />
+              <div className="h-10 w-10 animate-spin rounded-full border-4 border-primary/20 border-t-primary" />
               <h3 className="mt-4 text-lg font-semibold text-foreground">
-                No listings found
+                Loading marketplace listings...
               </h3>
-              <p className="mt-1 text-sm text-muted-foreground">
-                Try adjusting your filters or search query.
-              </p>
-              <Button
-                variant="outline"
-                size="sm"
-                className="mt-4"
-                onClick={clearFilters}
-              >
-                Clear all filters
-              </Button>
             </div>
+          ) : (
+            <> 
+              {errorMessage && (
+                <div className="mb-4 rounded-xl border border-yellow-200 bg-yellow-50 p-4 text-sm text-yellow-900">
+                  {errorMessage}
+                </div>
+              )}
+
+              {filteredListings.length > 0 ? (
+                <>
+                  <p className="mb-4 text-sm text-muted-foreground">
+                    {filteredListings.length} listing
+                    {filteredListings.length !== 1 ? "s" : ""} found
+                  </p>
+                  <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+                    {filteredListings.map((listing) => (
+                      <ListingCard key={listing.id} listing={listing} />
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <div className="flex flex-col items-center py-20 text-center">
+                  <Search className="h-10 w-10 text-muted-foreground/50" />
+                  <h3 className="mt-4 text-lg font-semibold text-foreground">
+                    No listings found
+                  </h3>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    Try adjusting your filters or search query.
+                  </p>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="mt-4"
+                    onClick={clearFilters}
+                  >
+                    Clear all filters
+                  </Button>
+                </div>
+              )}
+            </>
           )}
         </div>
       </div>

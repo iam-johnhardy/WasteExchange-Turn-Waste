@@ -1,8 +1,14 @@
+// import { useEffect } from "react";
 import Image from "next/image"
 import Link from "next/link"
 import { MapPin } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { RevealOnScroll } from "./client-body-scroll"
+// import { getPosts } from "./services/api";
+
+// useEffect(() => {
+//    getPosts().then(data => console.log(data));
+// }, []);
 
 export interface Listing {
   id: string
@@ -22,10 +28,11 @@ export function ListingCard({ listing }: { listing: Listing }) {
           <Image
             src={listing.image}
             alt={listing.title}
-          fill
-          className="object-cover transition-transform duration-300 group-hover:scale-105"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        />
+            fill
+            unoptimized
+            className="object-cover transition-transform duration-300 group-hover:scale-105"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
         <span className="absolute left-3 top-3 rounded-full bg-primary/90 px-3 py-1 text-xs font-medium text-primary-foreground backdrop-blur-sm">
           {listing.wasteType}
         </span>

@@ -4,6 +4,7 @@ import Link from "next/link"
 import { useState } from "react"
 import { Menu, X, Recycle } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { IoMdLogIn } from "react-icons/io";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -44,7 +45,10 @@ export function Navbar() {
         </ul>
 
         {/* Desktop CTA */}
-        <div className="hidden md:block">
+        <div className="hidden md:flex items-center gap-2">
+          <button className=" rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground">
+            <Link href="/login" className="flex items-center gap-1"><IoMdLogIn />Sign In</Link>
+          </button>
           <Button asChild size="sm">
             <Link href="/sell">Sell Waste</Link>
           </Button>
@@ -75,6 +79,15 @@ export function Navbar() {
                 </Link>
               </li>
             ))}
+            <li>
+              <Link
+                href="/login"
+                onClick={() => setMobileOpen(false)}
+                className="block rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+              >
+                Sign In
+              </Link>
+            </li>
             <li className="pt-2">
               <Button asChild className="w-full" size="sm">
                 <Link href="/sell" onClick={() => setMobileOpen(false)}>
