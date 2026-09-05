@@ -20,9 +20,9 @@ const footerLinks = {
 export function Footer() {
   return (
     <RevealOnScroll >
-      <footer className=" relative lg:w-full h-[57em] lg:h-[60vh] bg-[url('/images/image.png')] bg-cover bg-center bg-no-repeat">
+      <footer className=" relative lg:w-full h-[63em] lg:h-[80vh] bg-[url('/images/image.png')] bg-cover bg-center bg-no-repeat">
         <div className=" px-4 py-15 lg:px-8 absolute inset-0 bg-[#0a3d14] opacity-85">
-          <div className="grid lg:grid-cols-5 max-w-5xl mx-auto">
+          <div className="grid lg:grid-cols-5 max-w-4xl mx-auto">
             {/* Brand */}
             <div className="xl:col-span-2 mr-0">
             <Link href="/" className="flex items-center gap-2">
@@ -70,7 +70,7 @@ export function Footer() {
             </div>
           ))}
 
-          <div className='text-start lg:text-left mt-10 md:mt-0 w-full xl:w-[30em]'>
+          <div className='text-start lg:text-left mt-10 md:mt-0 w-full xl:w-[200px]'>
             <h5 className='mb-3 text-lg font-bold text-white'>Contact</h5>
             <div className="flex items-center gap-2 mb-2">
               <LuMessagesSquare className='w-5 h-5 text-white' />
@@ -90,8 +90,8 @@ export function Footer() {
             <h5 className="text-sm md:text-xl text-white font-bold mb-2">Join Us in Building a Sustainable Future</h5>
             <p className="text-sm text-white w-55 mb-2">Connect with us to turn your waste into revenue and contribute to a greener planet.</p>
             <div className="flex items-center gap-2 mb-4 lg:mb-0">
-              <input type="text" placeholder='Enter your email..' required className='bg-white w-55 py-2 lg:py-3 lg:px-5 rounded-md' />
-              <button className='flex text-[13px] items-center bg-white hover:bg-green-600 text-gray-800 hover:text-white font-bold py-3 px-2 rounded-md transition-colors duration-300'>
+              <input type="text" placeholder='Enter your email..' required className='bg-white lg:w-15% py-2 lg:py-3 lg:px-5 rounded-md' />
+              <button className='flex text-[10px] items-center lg:w-15% bg-white hover:bg-green-600 text-gray-800 hover:text-white font-bold py-2 px-2 rounded-md transition-colors duration-300'>
                 Get Started
               </button>
             </div>
